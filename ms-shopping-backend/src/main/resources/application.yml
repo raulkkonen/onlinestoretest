@@ -1,0 +1,33 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: ms-shopping
+  cloud:
+    config:
+      retry:
+        initial-interval: 3000
+        max-attempts: 8
+        max-interval: 20000
+        multiplier: 1.1
+  zipkin:
+    baseUrl: http://ms-zipkin-service-svc:9411
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 3000
+        readTimeout: 3000
+        loggerLevel: basic
+ms-customer:
+  ribbon:
+    MaxAutoRetries: 3
+    MaxAutoRetriesNextServer: 2
+    retryableStatusCodes: 500, 503, 504, 408
+    OkToRetryOnAllOperations: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+---

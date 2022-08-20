@@ -1,0 +1,48 @@
+<Configuration status="info">
+    <Properties>
+        <!--Property name="baseDir">${env:HOME}/logs</Property-->
+        <Property name="baseDir">d:/logs</Property>
+        <Property name="applicationName">${bundle:application:application.projectName}</Property>
+
+    </Properties>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%d{yyy-MM-dd HH:mm:ss:SSS}] [${applicationName},%X{traceId},%X{spanId}},%X{spanExportable}] [%p] - %l - %m%n"/>
+        </Console>
+        <RollingFile name="RollingFile" fileName="${baseDir}/${applicationName}.log" filePattern="${baseDir}/${applicationName}.%d{yyyy-MM-dd}-%i.zip">
+            <PatternLayout pattern="[%d{yyy-MM-dd HH:mm:ss:SSS}] [${applicationName},%X{traceId},%X{spanId}},%X{spanExportable}] [%p] - %l - %m%n"/>
+            <Policies>
+                <OnStartupTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="10 MB" />
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+            <DefaultRolloverStrategy max="5" />
+        </RollingFile>
+        <Async name="Async">
+            <AppenderRef ref="RollingFile"/>
+        </Async>
+    </Appenders>
+    <Loggers>
+        <Logger name="org.hibernate.SQL" level="INFO">
+            <AppenderRef ref="RollingFile"/>
+        </Logger>
+        <Logger name="org.hibernate.type.descriptor.sql" level="INFO">
+            <AppenderRef ref="RollingFile"/>
+        </Logger>
+
+        <logger name="academy.digitallab.store.security" level="INFO" />
+        <logger name="org.springframework" level="INFO" />
+        <logger name="org.springframework.data" level="INFO" />
+        <logger name="org.springframework.transaction" level="INFO" />
+        <logger name="org.springframework.security" level="INFO" /> <!-- to debug security related issues (DEBUG) -->
+        <logger name="org.springframework.web.servlet.mvc" level="INFO" /> <!-- some serialization issues are at trace level here: org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod -->
+        <logger name="org.hibernate.SQL" level="INFO" />
+        <logger name="org.hibernate.engine.jdbc.batch.internal.BatchingBatch" level="INFO" />
+        <Root level="info">
+            <AppenderRef ref="Async"/>
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+
+
+</Configuration>

@@ -1,0 +1,23 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: ms-security
+  cloud:
+    config:
+      retry:
+        initial-interval: 3000
+        max-attempts: 8
+        max-interval: 20000
+        multiplier: 1.1
+  rabbitmq:
+    host: ms-rabbitmq-service-svc
+    port: 5672
+    username: guest
+    password: guest
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

@@ -1,0 +1,45 @@
+version: "3.7"
+services:
+    security-service:
+        image: edumar111/security-service:1.0.0
+        container_name: ms-security-backend-svc
+        environment:
+        - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+        - "SPRING_PROFILES_ACTIVE=dev"
+        networks:
+        - onlinestore
+        ports:
+        - "8095:8095"
+    customer-service:
+        image: edumar111/customer-service:1.0.0
+        container_name: ms-customer-backend-svc
+        environment:
+        - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+        - "SPRING_PROFILES_ACTIVE=dev"
+        networks:
+        - onlinestore
+        ports:
+          - "8092:8092"
+    product-service:
+        image: edumar111/product-service:1.0.0
+        container_name: ms-product-backend-svc
+        environment:
+        - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+        - "SPRING_PROFILES_ACTIVE=dev"
+        networks:
+        - onlinestore
+        ports:
+          - "8091:8091"
+    shopping-service:
+        image: edumar111/shopping-service:1.0.0
+        container_name: ms-shopping-backend-svc
+        environment:
+        - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+        - "SPRING_PROFILES_ACTIVE=dev"
+        networks:
+        - onlinestore
+        ports:
+          - "8093:8093"
+networks:
+    onlinestore:
+        external: true

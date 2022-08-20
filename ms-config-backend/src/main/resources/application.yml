@@ -1,0 +1,25 @@
+server:
+  port: 8081
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          search-paths: config-data
+          uri: https://gitlab.com/onlinestore4/devops/config-data.git
+          username: ${GIT_USER}
+          password: ${GIT_PASSWORD}
+          timeout: 4
+          skipSslValidation: false
+    label: develop
+  security:
+    user:
+      name: root
+      password: s3cr3t
+
+logging:
+  level:
+    root: INFO
+    org.springframework: INFO
+    org.springframework.cloud.config: DEBUG
+

@@ -1,0 +1,44 @@
+#Application Configuration
+server:
+  port: 8095
+  error:
+    include-message: always
+    include-binding-errors: always
+spring:
+  config:
+    activate:
+      on-profile: dev
+  # ===============================
+  # DB
+  # ===============================
+  datasource:
+    url:  jdbc:mysql://ms-mysql-service-svc:3306/securityDB
+    driverClassName: com.mysql.jdbc.Driver
+    username: user_store
+    password: password_store
+  # ===============================
+  # JPA / HIBERNATE
+  # ===============================
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+        show_sql: true
+        use_sql_comments: false
+        format_sql: false
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
+eureka:
+    client:
+      serviceUrl:
+        defaultZone: http://ms-eureka-backend-svc:8099/eureka/
+redis:
+  serverHost: ms-redis-service-svc
+  serverPort: 8087
+  sessionSecondsLive: 86400
+  
